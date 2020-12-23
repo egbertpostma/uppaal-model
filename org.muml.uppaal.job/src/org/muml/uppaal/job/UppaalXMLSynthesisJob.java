@@ -19,14 +19,14 @@ public class UppaalXMLSynthesisJob extends WorkspaceJob {
 		super("UPPAAL XML Synthesis");
 	}
 	
-	public UppaalXMLSynthesisJob(NTA nta, PropertyRepository properties, IPath targetPath, boolean layout) {
+	public UppaalXMLSynthesisJob(NTA nta, PropertyRepository properties, IPath targetPath) {
 		this();
-		runnable = new UppaalXMLSynthesisOperation(nta, properties, targetPath, layout);
+		runnable = new UppaalXMLSynthesisOperation(nta, properties, targetPath);
 	}
 
-	public UppaalXMLSynthesisJob(NTA nta, PropertyRepository properties, IResource resource, boolean layout) {
+	public UppaalXMLSynthesisJob(NTA nta, PropertyRepository properties, IResource resource) {
 		this();
-		runnable = new UppaalXMLSynthesisOperation(nta, properties, resource, layout);
+		runnable = new UppaalXMLSynthesisOperation(nta, properties, resource);
 	}
 	
 	@Override

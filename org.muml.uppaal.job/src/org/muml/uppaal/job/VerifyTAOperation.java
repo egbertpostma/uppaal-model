@@ -139,7 +139,7 @@ public class VerifyTAOperation implements IWorkspaceRunnable {
 			IPath targetPath = Path.fromOSString(containerName);
 
 			logStatistics("Start of Uppaal XML Synthesis");
-			IWorkspaceRunnable xmlSynthesis = new UppaalXMLSynthesisOperation(nta, properties, targetPath, false);
+			IWorkspaceRunnable xmlSynthesis = new UppaalXMLSynthesisOperation(nta, properties, targetPath);
 			xmlSynthesis.run(subMonitor.split(10));
 
 			logStatistics("Start of Running Uppaal");

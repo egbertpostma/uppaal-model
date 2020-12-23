@@ -13,7 +13,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.muml.uppaal.NTA;
-import org.muml.uppaal.job.layout.Layouter;
 import org.muml.uppaal.requirements.PropertyRepository;
 import org.muml.uppaal.serialization.UppaalPropertySerialization;
 import org.muml.uppaal.serialization.UppaalSerialization;
@@ -27,19 +26,17 @@ public class UppaalXMLSynthesisOperation implements IWorkspaceRunnable {
 	private IPath targetPath;
 	private IResource resource;
 	
-	private boolean layout = false;
 
-	public UppaalXMLSynthesisOperation(NTA nta, PropertyRepository properties, IPath targetPath, boolean layout) {
+	public UppaalXMLSynthesisOperation(NTA nta, PropertyRepository properties, IPath targetPath) {
 		//super("UPPAAL XML Synthesis");
 
 		this.nta = nta;
 		this.properties = properties;
 		this.targetPath = targetPath;
-		this.layout = layout;
 	}
 
-	public UppaalXMLSynthesisOperation(NTA nta, PropertyRepository properties, IResource resource, boolean layout) {
-		this(nta, properties, resource.getLocation(), layout);
+	public UppaalXMLSynthesisOperation(NTA nta, PropertyRepository properties, IResource resource) {
+		this(nta, properties, resource.getLocation());
 		this.resource = resource;
 	}
 	
@@ -53,16 +50,6 @@ public class UppaalXMLSynthesisOperation implements IWorkspaceRunnable {
 		try {
 
 			SubMonitor subMonitor = SubMonitor.convert(monitor, this.getName(), resource == null ? 90 : 100);
-												
-			if (layout) {
-				Layouter layouter = new Layouter();
-				subMonitor.subTask("Layouting Uppaal NTAs");
-				for (Template template : nta.getTemplate()) {
-					layouter.layoutTemplate(template);
-				}
-			
-				subMonitor.worked(10);
-			}
 					
 			subMonitor.setWorkRemaining(resource == null ? 80 : 90);
 			
